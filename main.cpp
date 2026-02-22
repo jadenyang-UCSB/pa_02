@@ -139,7 +139,7 @@ int main(int argc, char** argv){
             movieScores[prefixes[pre]] = *question.begin();
 
             for(auto i: question){
-                cout << i.getmovieName() << " " << i.getmovieRating() << "\n";
+                cout << i.getmovieName() << ", " << i.getmovieRating() << "\n";
             }
             cout << "\n";
         }
