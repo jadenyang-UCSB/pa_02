@@ -1,6 +1,6 @@
 // Winter'24
 // Instructor: Diba Mirza
-// Student name: 
+// Student name: Jaden Yang
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -36,13 +36,27 @@ int main(int argc, char** argv){
   
     // Create an object of a STL data-structure to store all the movies
 
-    string line, movieName;
     double movieRating;
+
+    vector<string> title;
+    vector<movie> question;
+
+    set<movie> movieList;
+
+    letterName* dummyHead = new letterName(' ');
+    string line, movieName;
+
+    unordered_map<string, movie> movieScores;
+    unordered_map<string, double> movieDictionary;
+
     // Read each file and store the name and rating
     while (getline (movieFile, line) && parseLine(line, movieName, movieRating)){
             // Use std::string movieName and double movieRating
             // to construct your Movie objects
             // cout << movieName << " has rating " << movieRating << endl;
+            movieList.insert(movie(movieName,movieRating));
+            movieDictionary[movieName] = movieRating;
+            title.push_back(movieName);
             // insert elements into your data structure
     }
 
@@ -50,6 +64,9 @@ int main(int argc, char** argv){
 
     if (argc == 2){
             //print all the movies in ascending alphabetical order of movie names
+            for(auto iterate = movieList.begin(); iterate != movieList.end(); iterate++){
+                cout << iterate->getmovieName() <<", " << iterate->getmovieRating() << "\n";
+            }
             return 0;
     }
 
@@ -61,25 +78,122 @@ int main(int argc, char** argv){
     }
 
     vector<string> prefixes;
+
     while (getline (prefixFile, line)) {
         if (!line.empty()) {
             prefixes.push_back(line);
+        }
+    }
+    letterName* curr = nullptr;
+    for(auto words: title){
+        curr = dummyHead;
+        // cout << words  << "\n";
+        for (int i = 0; i < words.size(); i++){
+            int index = place(words[i]);
+            if(curr->next[index] == nullptr){
+                if(i != words.size() - 1){
+                    curr->next[index] = new letterName(words[i]);
+                }
+                else{
+                    curr->next[index] = new letterName(words[i], true);
+                }
+                curr = curr->next[index];
+            }
+            else{
+                if(i == words.size() - 1){
+                    curr->isEnd = true;
+                    curr = curr->next[index];
+                }
+                else{
+                    curr = curr->next[index];
+                }
+            }
+        }        
+    }
+
+    for(int pre = 0; pre < prefixes.size(); pre++){
+        question = {};
+        string currString = prefixes[pre];
+
+        curr = dummyHead;
+
+        int j = 0;
+        int index = place(currString[j]);
+
+        while(j < currString.size() && curr->next[index]){
+            curr = curr->next[index];
+            j++;
+            index = place(currString[j]);
+        }
+
+        if(curr->next[index]){
+            treePrint(curr, movieDictionary, question,"", prefixes[pre]);
+        }
+
+        if(question.size() != 0){
+
+            sort(question.begin(), question.end(),[](const movie& a, const movie& b){
+              return a.getmovieRating() > b.getmovieRating();
+            });
+
+            movieScores[prefixes[pre]] = *question.begin();
+
+            for(auto i: question){
+                cout << i.getmovieName() << " " << i.getmovieRating() << "\n";
+            }
+            cout << "\n";
+        }
+        else{
+            cout << "No movies found with prefix "<< prefixes[pre] << "\n";
         }
     }
 
     //  For each prefix,
     //  Find all movies that have that prefix and store them in an appropriate data structure
     //  If no movie with that prefix exists print the following message
-    cout << "No movies found with prefix "<<"<replace with prefix>" << endl;
+    // cout << "No movies found with prefix "<<"<replace with prefix>" << endl;
 
     //  For each prefix,
     //  Print the highest rated movie with that prefix if it exists.
-    cout << "Best movie with prefix " << "<replace with prefix>" << " is: " << "replace with movie name" << " with rating " << std::fixed << std::setprecision(1) << "replace with movie rating" << endl;
+    for(auto prefix: prefixes){
+        if(movieScores[prefix].getmovieRating() != -1.0){
+            cout << "Best movie with prefix " << prefix << " is: " << "replace with movie name " << movieScores[prefix].getmovieName() << " with rating " << std::fixed << std::setprecision(1) << movieScores[prefix].getmovieRating() << " replace with movie rating \n";
+        }
+    }
 
     return 0;
 }
 
 /* Add your run time analysis for part 3 of the assignment here as commented block*/
+
+/*
+
+
+3B) 
+
+3C)
+Did you design your algorithm for a low time complexity, a low space complexity, or both? What were your target complexities?
+The algorithm I designed is ONLY designed for low time complexity. Each node represents a singular letter that has an array
+of 84 spaces, therefore the space complexity 
+
+
+Based on your answer to the question above, answer one of the following:
+
+If you designed your algorithm for a low time complexity,
+Were you able to achieve a low space complexity as well?
+Why or why not?
+If you designed your algorithm for a low space complexity,
+Were you able to achieve a low time complexity as well?
+Why or why not?
+If you designed your algorithm for both,
+Were you able to achieve both?
+Why or why not?
+Which was harder to achieve: low time complexity or low space complexity?
+You must provide these answers as a commented block under your space complexity analysis.
+
+You will be graded for the clarity and thoughtfulness of your analysis.
+ 
+*/
 
 bool parseLine(string &line, string &movieName, double &movieRating) {
     int commaIndex = line.find_last_of(",");
@@ -90,3 +204,17 @@ bool parseLine(string &line, string &movieName, double &movieRating) {
     }
     return true;
 }
+
+
+        // for(int j = 0; j < prefixCHAR.size(); j++){
+        //     int index = place(prefixCHAR[j]);
+        //     if(curr->next[index]){
+        //         currString += curr->data;
+        //         curr = curr->next[index];
+        //     }
+        //     else{
+        //         cout << "No prefix" << "\n";
+        //         break;
+        //     }
+        // }
+        
