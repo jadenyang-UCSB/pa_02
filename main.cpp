@@ -65,7 +65,7 @@ int main(int argc, char** argv){
     if (argc == 2){
             //print all the movies in ascending alphabetical order of movie names
             for(auto iterate = movieList.begin(); iterate != movieList.end(); iterate++){
-                cout << iterate->getmovieName() <<", " << iterate->getmovieRating() << "\n";
+                cout << iterate->getmovieName() <<" " << iterate->getmovieRating() << "\n";
             }
             return 0;
     }
