@@ -131,9 +131,13 @@ int main(int argc, char** argv){
         }
 
         if(question.size() != 0){
-
             sort(question.begin(), question.end(),[](const movie& a, const movie& b){
-              return a.getmovieRating() > b.getmovieRating();
+                if(a.getmovieRating() != b.getmovieRating()){
+                    return a.getmovieRating() > b.getmovieRating();
+                }
+                else{
+                    return a.getmovieName() < b.getmovieName();
+                }
             });
 
             movieScores[prefixes[pre]] = *question.begin();
