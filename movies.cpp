@@ -83,7 +83,6 @@ void treePrint(letterName* root, const unordered_map<string, double>& movie_rate
     for(int k = 0; k < 125; k++){
         if(root->next[k] != nullptr){
             treePrint(root->next[k], movie_rate, query, b + root->data, prefix);
-            b.erase(b.size(),b.size());
         }
     }
     return;

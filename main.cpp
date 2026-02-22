@@ -101,8 +101,8 @@ int main(int argc, char** argv){
             }
             else{
                 if(i == words.size() - 1){
-                    curr->isEnd = true;
                     curr = curr->next[index];
+                    curr->isEnd = true;
                 }
                 else{
                     curr = curr->next[index];
