@@ -157,7 +157,7 @@ int main(int argc, char** argv){
     //  Print the highest rated movie with that prefix if it exists.
     for(auto prefix: prefixes){
         if(movieScores[prefix].getmovieRating() != -1.0){
-            cout << "Best movie with prefix " << prefix << " is: " << "replace with movie name " << movieScores[prefix].getmovieName() << " with rating " << std::fixed << std::setprecision(1) << movieScores[prefix].getmovieRating() << " replace with movie rating \n";
+            cout << "Best movie with prefix " << prefix << " is: " << movieScores[prefix].getmovieName() << " with rating " << std::fixed << std::setprecision(1) << movieScores[prefix].getmovieRating() << "\n";
         }
     }
 
