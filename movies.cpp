@@ -64,14 +64,14 @@ void treePrint(letterName* root, const unordered_map<string, double>& movie_rate
     }
 
     if(root->isEnd == true){
-        b += root->data;
-        b.erase(0,1);
+        string temp = b + root->data;
+       temp.erase(0,1);
         // for(auto[name, value]: movie_rate){
         //     cout << name << "\n";
         //     cout << prefix + b << "\n";
         //     cout << "\n";
         // }
-        auto it = movie_rate.find(prefix + b);
+        auto it = movie_rate.find(prefix + temp);
         if(it != movie_rate.end()){
             query.push_back(movie(it->first,it->second));
         }
