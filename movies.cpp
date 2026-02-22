@@ -78,7 +78,6 @@ void treePrint(letterName* root, const unordered_map<string, double>& movie_rate
         // else{
         //     cout << "I didn't find it";
         // }
-        return;
     }
     
     for(int k = 0; k < 125; k++){
