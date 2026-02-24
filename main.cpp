@@ -172,30 +172,20 @@ int main(int argc, char** argv){
 
 /*
 
+3A)
+If I were to traverse the subtree I would have to do it in O(k*l) time because I'm looping through every prefix then looping through the titles of the movies. Next, 
+I would have to include m*n*l because the characters and overall letters comes from the length of the movie name
 
 3B) 
+
+For the worst space complexity it would be O(n*l). When because every node stores letters from multiple movie titles. The number of nodes holds letters from movies.
+Therefore, the space complexity would be O(n*l)
 
 3C)
 Did you design your algorithm for a low time complexity, a low space complexity, or both? What were your target complexities?
 The algorithm I designed is ONLY designed for low time complexity. Each node represents a singular letter that has an array
-of 84 spaces, therefore the space complexity 
-
-
-Based on your answer to the question above, answer one of the following:
-
-If you designed your algorithm for a low time complexity,
-Were you able to achieve a low space complexity as well?
-Why or why not?
-If you designed your algorithm for a low space complexity,
-Were you able to achieve a low time complexity as well?
-Why or why not?
-If you designed your algorithm for both,
-Were you able to achieve both?
-Why or why not?
-Which was harder to achieve: low time complexity or low space complexity?
-You must provide these answers as a commented block under your space complexity analysis.
-
-You will be graded for the clarity and thoughtfulness of your analysis.
+of 84 spaces, therefore the space complexity is pretty bad. I wasn't able to achieve a low space complexity with a low time complexity as well.
+Personally, I found that it was harder for low space complexity seeing that there are thousands of titles.
  
 */
 
