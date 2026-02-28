@@ -13,6 +13,7 @@
 #include <set>
 #include <queue>
 #include <sstream>
+#include <chrono>
 using namespace std;
 
 #include "utilities.h"
@@ -69,6 +70,9 @@ int main(int argc, char** argv){
             }
             return 0;
     }
+
+    //Timing Start
+    // auto start = chrono::high_resolution_clock::now();
 
     ifstream prefixFile (argv[2]);
 
@@ -164,6 +168,12 @@ int main(int argc, char** argv){
             cout << "Best movie with prefix " << prefix << " is: " << movieScores[prefix].getmovieName() << " with rating " << std::fixed << std::setprecision(1) << movieScores[prefix].getmovieRating() << "\n";
         }
     }
+    //Timing purposes
+    // auto end = chrono::high_resolution_clock::now();
+
+    // auto duration = chrono::duration_cast<chrono::microseconds>(end-start);
+    // double time_taken = duration.count()/ 1000.0;
+    // cout << "This is the time taken " << time_taken << "ms";
 
     return 0;
 }
@@ -173,8 +183,15 @@ int main(int argc, char** argv){
 /*
 
 3A)
-If I were to traverse the subtree I would have to do it in O(k*l) time because I'm looping through every prefix then looping through the titles of the movies. Next, 
-I would have to include m*n*l because the characters and overall letters comes from the length of the movie name
+If I were to traverse the subtree I would have to do it in O(n*l) time because I'm looping through every prefix then looping through the titles of the movies. Next, 
+I would have to include m*n*l because the characters and overall letters comes from the length of the movie name. Next the printing of the sub tree would create a time
+complexity of mnlogn. Therefore, the overall complexity would be O(nl +mnl + mnlogn)
+
+input_1000_randomized.csv/prefix_large.txt 343.8 ms
+input_76920_randomized.csv/prefix_large.txt 2994.2 ms
+input_100_randomized.csv/prefix_large.txt 309.8 ms
+input_20_randomized.csv/prefix_large.txt  276.5 ms
+
 
 3B) 
 
@@ -183,6 +200,7 @@ Therefore, the space complexity would be O(n*l)
 
 3C)
 Did you design your algorithm for a low time complexity, a low space complexity, or both? What were your target complexities?
+
 The algorithm I designed is ONLY designed for low time complexity. Each node represents a singular letter that has an array
 of 84 spaces, therefore the space complexity is pretty bad. I wasn't able to achieve a low space complexity with a low time complexity as well.
 Personally, I found that it was harder for low space complexity seeing that there are thousands of titles.
